@@ -1,3 +1,7 @@
+![image](https://github.com/Dev-Pedrosv/nu-finance/assets/82785683/4c6ca721-e417-44c5-aca7-d184d778f1c0)
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
