@@ -1,8 +1,8 @@
 export interface FinanceList {
   id: string
   title: string
-  value: number
+  amount: number
   category: string
   date: string
-  type: 'paid' | 'received'
+  type: 'withdraw' | 'deposit'
 }

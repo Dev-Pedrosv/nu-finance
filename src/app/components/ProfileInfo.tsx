@@ -21,7 +21,7 @@ export function ProfileInfo() {
         </button>
       </div>
       <p className="text-lg font-bold text-white">
-        {showSalary ? 'R$ *******' : 'R$ 100.699,30'}
+        {showSalary ? 'R$ *******' : 'R$ 0,32'}
       </p>
     </>
   )

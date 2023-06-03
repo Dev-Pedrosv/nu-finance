@@ -1,4 +1,5 @@
 import { FinanceList } from '@/types/finance-list'
+import { currencyFormat } from '../lib/currencyFormat'
 
 export function FinanceListTable({
   financeList,
@@ -6,7 +7,7 @@ export function FinanceListTable({
   financeList: FinanceList[]
 }) {
   function getValueColor(finance: FinanceList) {
-    const color = finance.type === 'paid' ? 'red' : 'green'
+    const color = finance.type === 'withdraw' ? 'red' : 'green'
     return `text-${color}-500`
   }
 
@@ -27,7 +28,7 @@ export function FinanceListTable({
           >
             <p className="ml-5 text-start font-medium">{finance.title}</p>
             <p className={`text-start font-medium ${getValueColor(finance)}`}>
-              {finance.value}
+              {currencyFormat(finance.amount)}
             </p>
             <p className="text-start font-medium">{finance.category}</p>
             <p className="ml-5 text-start font-medium">

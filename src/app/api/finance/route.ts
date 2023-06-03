@@ -1,43 +1,60 @@
 import { FinanceList } from '@/types/finance-list'
-import { NextRequest, NextResponse } from 'next/server'
+import { randomUUID } from 'crypto'
+import { NextResponse } from 'next/server'
 
-export async function GET(request: NextRequest) {
-  const data: FinanceList[] = [
-    {
-      id: '1',
-      title: 'Cartão de crédito',
-      value: 252.64,
-      category: 'Casa',
-      date: new Date().toString(),
-      type: 'paid',
-    },
-    {
-      id: '2',
-      title: 'Conta de luz',
-      value: 190.12,
-      category: 'Casa',
-      date: new Date().toString(),
-      type: 'paid',
-    },
+const data: FinanceList[] = [
+  {
+    id: '1',
+    title: 'Cartão de crédito',
+    amount: 252.64,
+    category: 'Casa',
+    date: new Date().toString(),
+    type: 'withdraw',
+  },
+  {
+    id: '2',
+    title: 'Conta de luz',
+    amount: 190.12,
+    category: 'Casa',
+    date: new Date().toString(),
+    type: 'withdraw',
+  },
 
-    {
-      id: '3',
-      title: 'Salário',
-      value: 3500,
-      category: 'Dev',
-      date: new Date().toString(),
-      type: 'received',
-    },
+  {
+    id: '3',
+    title: 'Salário',
+    amount: 3500,
+    category: 'Dev',
+    date: new Date().toString(),
+    type: 'deposit',
+  },
 
-    {
-      id: '4',
-      title: 'Freelance',
-      value: 1000,
-      category: 'Dev',
-      date: new Date().toString(),
-      type: 'received',
-    },
-  ]
+  {
+    id: '4',
+    title: 'Freelance',
+    amount: 1000,
+    category: 'Dev',
+    date: new Date().toString(),
+    type: 'deposit',
+  },
+]
 
+export async function GET() {
   return NextResponse.json(data)
+}
+
+export async function POST(request: Request) {
+  const requestData = await request.json()
+  const { title, amount, category, type } = requestData.body
+
+  data.push({
+    id: randomUUID(),
+    date: new Date().toString(),
+    title,
+    amount,
+    category,
+    type,
+  })
+
+  return NextResponse.json('Success')
 }
