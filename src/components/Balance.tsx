@@ -1,4 +1,5 @@
 import { currencyFormat } from '@/app/lib/currencyFormat'
+import { twMerge } from 'tailwind-merge'
 
 interface Props {
   deposit?: number
@@ -9,12 +10,13 @@ export function Balance(props: Props) {
   const deposit = props.deposit ?? 0
   const withdraw = props.withdraw ?? 0
 
-  const summary = deposit - withdraw
-
-  const percentageBalance = `${((summary / deposit) * 100).toFixed(0)}%`
+  const percentageBarClassName = twMerge(
+    'relative h-2 w-full rounded-xl bg-red-500 before:absolute before:h-2 before:bg-green-500',
+    deposit ? `before:w-[15%]` : '',
+  )
 
   return (
-    <div className="mx-auto flex h-24 w-[458px] flex-col justify-between rounded-xl bg-white p-3 shadow-md ">
+    <div className="mx-auto mt-2 flex h-24 w-full max-w-[360px] flex-col justify-between rounded-xl bg-white p-3 shadow-md md:-mt-5 md:max-w-[458px] ">
       <div className="flex justify-between">
         <div className="relative">
           <p className="ml-5 text-lg font-bold">{currencyFormat(deposit)}</p>
@@ -28,9 +30,7 @@ export function Balance(props: Props) {
           <p className="ml-5 mt-1 text-sm text-gray-500">Saida</p>
         </div>
       </div>
-      <div
-        className={`relative h-2 w-full rounded-xl bg-red-500 before:absolute before:h-2 before:w-[${percentageBalance}]  before:bg-green-500 `}
-      />
+      <div className={percentageBarClassName} />
     </div>
   )
 }
