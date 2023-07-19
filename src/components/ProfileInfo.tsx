@@ -11,8 +11,6 @@ interface Props {
 export function ProfileInfo(props: Props) {
   const [showSalary, setShowSalary] = useState(false)
 
-  console.log(props.totalBalance)
-
   const handleShowSalary = () => setShowSalary(!showSalary)
 
   return (
