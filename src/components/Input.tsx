@@ -12,7 +12,7 @@ function Input(
 ) {
   const inputClassName = twMerge(
     'mt-5 h-10 w-full rounded-xl bg-[#F7F7FF] pl-4 shadow-lg outline-none',
-    error ? 'border-red-500' : 'focus:ring-1 focus:ring-primary',
+    error ? 'border-2 border-red-500' : 'focus:ring-1 focus:ring-primary',
     className,
   )
 
@@ -20,7 +20,7 @@ function Input(
     <div className="flex w-full flex-col">
       <input ref={ref} className={inputClassName} {...props} />
       {error && errorMessage && (
-        <span className="mt-1 text-xs text-red-400">{errorMessage}</span>
+        <span className="mt-1 text-sm text-red-500">{errorMessage}</span>
       )}
     </div>
   )
