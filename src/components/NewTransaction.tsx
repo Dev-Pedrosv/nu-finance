@@ -34,11 +34,13 @@ export function NewTransaction(props: Props) {
   })
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
+    const formatNumber = String(data.amount).replace(',', '.')
     try {
       setIsLoading(true)
       await axios.post('api/finance', {
         body: {
           ...data,
+          amount: Number(formatNumber),
         },
       })
       props.onSuccess()
@@ -95,7 +97,6 @@ export function NewTransaction(props: Props) {
           }}
           render={({ field, fieldState, formState }) => (
             <CurrencyInput
-              allowDecimals={false}
               placeholder="Valor"
               onValueChange={field.onChange as any}
               value={field.value}

@@ -54,11 +54,7 @@ export default function Home() {
       </Header>
       <ProfileInfo totalBalance={totalBalance || 0} />
 
-      <Balance
-        deposit={totalDeposit}
-        withdraw={totalWithdraw}
-        totalBalance={totalBalance}
-      />
+      <Balance deposit={totalDeposit} withdraw={totalWithdraw} />
 
       <FinanceListTable
         financeList={financeList}
