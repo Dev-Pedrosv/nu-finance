@@ -33,13 +33,15 @@ export default function Home() {
   }
 
   const totalBalance = financeList?.reduce((sum, item) => {
-    if (item.type === 'deposit') {
-      return sum + item.amount
-    }
-    if (item.type === 'withdraw') {
-      return sum - item.amount
-    }
-    return sum
+    return item.type === 'deposit' ? sum + item.amount : sum - item.amount
+  }, 0)
+
+  const totalDeposit = financeList?.reduce((sum, item) => {
+    return item.type === 'deposit' ? sum + item.amount : sum
+  }, 0)
+
+  const totalWithdraw = financeList?.reduce((sum, item) => {
+    return item.type === 'withdraw' ? sum - item.amount : sum
   }, 0)
 
   return (
@@ -52,11 +54,16 @@ export default function Home() {
       </Header>
       <ProfileInfo totalBalance={totalBalance || 0} />
 
-      <div className="-mt-5">
-        <Balance deposit={15} withdraw={10} />
-      </div>
+      <Balance
+        deposit={totalDeposit}
+        withdraw={totalWithdraw}
+        totalBalance={totalBalance}
+      />
 
-      <FinanceListTable financeList={financeList} />
+      <FinanceListTable
+        financeList={financeList}
+        onDelete={(value: string) => console.log(value)}
+      />
       <NewTransaction
         isOpen={isOpen}
         handleCloseNewTransaction={handleCloseNewTransaction}
