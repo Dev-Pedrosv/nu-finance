@@ -8,6 +8,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { FinanceList } from '@/types/finance-list'
 import CurrencyInput from '@/components/CurrencyInput'
 import Input from '@/components/Input'
+import { Loader2 } from 'lucide-react'
 
 interface Props {
   isOpen: boolean
@@ -148,7 +149,7 @@ export function NewTransaction(props: Props) {
         />
 
         <button className="mx-auto mt-5 block h-10 w-[244px] rounded-3xl bg-purple-600 font-semibold text-white transition-colors hover:bg-purple-800">
-          {isLoading ? 'Loading...' : 'Nova transação'}
+          {isLoading ? <Loader2 className="animate-spin" /> : 'Nova transação'}
         </button>
         <button
           type="button"

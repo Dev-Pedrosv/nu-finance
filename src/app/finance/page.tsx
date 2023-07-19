@@ -2,18 +2,22 @@
 
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { LogOut } from 'lucide-react'
+
 import { FinanceList } from '@/types/finance-list'
+
 import { ProfileInfo } from '@/components/ProfileInfo'
 import { Balance } from '@/components/Balance'
 import { FinanceListTable } from '@/components/FinanceListTable'
 import { NewTransaction } from '@/components/NewTransaction'
 import Header from '@/components/Header'
-import { LogOut } from 'lucide-react'
 import ButtonNewTransaction from '@/components/ButtonNewTransaction'
+import Loading from '@/components/Loading'
 
 export default function Home() {
   const [financeList, setFinanceList] = useState<FinanceList[] | undefined>()
   const [isOpen, setIsOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   async function fetchData() {
     const { data } = await axios.get('/api/finance')
@@ -65,6 +69,7 @@ export default function Home() {
         handleCloseNewTransaction={handleCloseNewTransaction}
         onSuccess={fetchData}
       />
+      <Loading isLoading={isLoading} />
     </main>
   )
 }
