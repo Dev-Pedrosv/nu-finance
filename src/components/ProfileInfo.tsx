@@ -14,7 +14,7 @@ export function ProfileInfo(props: Props) {
   const handleShowSalary = () => setShowSalary(!showSalary)
 
   return (
-    <div className="h-32 w-full bg-purple-600 px-12 py-6">
+    <div className="h-32 w-full bg-purple-600 px-4 py-6 md:px-12">
       <p className="text-sm text-white">Olá, Pedro Henrique da Silva</p>
       <div className="flex w-52 items-center justify-between text-white">
         <p>Total</p>

@@ -8,7 +8,7 @@ type Props = {
 
 export default function Header({ children }: Props) {
   return (
-    <header className="flex justify-between px-12 py-5">
+    <header className="flex justify-between px-4 py-5 md:px-12">
       <Image src={NuBankLogo} alt="NuBank logo" />
       {children}
     </header>

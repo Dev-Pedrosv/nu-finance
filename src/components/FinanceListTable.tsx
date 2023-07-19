@@ -30,7 +30,7 @@ export function FinanceListTable({ financeList, onDelete }: Props) {
           return (
             <div
               key={finance.id}
-              className="grid min-h-[40px] w-full max-w-[820px] grid-flow-row grid-cols-4 items-center gap-4 gap-x-2 rounded-lg bg-white p-3 shadow-xl"
+              className="grid min-h-[40px] w-full max-w-[820px] grid-flow-row grid-cols-4 items-center gap-4 rounded-lg bg-white p-3 shadow-xl"
             >
               <p className="w-full text-start text-sm font-semibold md:text-base">
                 {finance.title}
