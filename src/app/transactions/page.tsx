@@ -12,7 +12,7 @@ import { LogOut } from 'lucide-react'
 import ButtonNewTransaction from '@/components/ButtonNewTransaction'
 
 export default function Home() {
-  const [financeList, setFinanceList] = useState<FinanceList[] | []>([])
+  const [financeList, setFinanceList] = useState<FinanceList[] | undefined>()
   const [isOpen, setIsOpen] = useState(false)
 
   async function fetchData() {
@@ -32,6 +32,16 @@ export default function Home() {
     setIsOpen(false)
   }
 
+  const totalBalance = financeList?.reduce((sum, item) => {
+    if (item.type === 'deposit') {
+      return sum + item.amount
+    }
+    if (item.type === 'withdraw') {
+      return sum - item.amount
+    }
+    return sum
+  }, 0)
+
   return (
     <main className="h-screen bg-[#E5E5E5]">
       <Header>
@@ -40,10 +50,7 @@ export default function Home() {
           <LogOut />
         </div>
       </Header>
-
-      <div className="h-32 w-full bg-purple-600 px-12 py-6">
-        <ProfileInfo financeList={financeList} />
-      </div>
+      <ProfileInfo totalBalance={totalBalance || 0} />
 
       <div className="-mt-5">
         <Balance deposit={15} withdraw={10} />
