@@ -1,25 +1,30 @@
 import Image from 'next/image'
-import CardSVG from '@/assets/card.svg'
-import IncomeSVG from '@/assets/income.svg'
-import OutcomeSVG from '@/assets/outcome.svg'
-import { useState } from 'react'
-import axios from 'axios'
+import { useContext, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+
+import { Loader2 } from 'lucide-react'
+
+import { FinanceContext } from '@/providers/financeProvider'
 import { FinanceList } from '@/types/finance-list'
+
 import CurrencyInput from '@/components/CurrencyInput'
 import Input from '@/components/Input'
-import { Loader2 } from 'lucide-react'
+
+import IncomeSVG from '@/assets/income.svg'
+import OutcomeSVG from '@/assets/outcome.svg'
+import CardSVG from '@/assets/card.svg'
 
 interface Props {
   isOpen: boolean
   handleCloseNewTransaction: () => void
-  onSuccess: () => void
 }
 
-interface FormInput extends Omit<FinanceList, 'id' | 'date'> {}
+interface FormInput extends Omit<FinanceList, 'id' | 'createdAt'> {}
 
 export function NewTransaction(props: Props) {
   const [isLoading, setIsLoading] = useState(false)
+  const { createFinance } = useContext(FinanceContext)
+
   const {
     register,
     control,
@@ -35,16 +40,14 @@ export function NewTransaction(props: Props) {
   })
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
-    const formatNumber = String(data.amount).replace(',', '.')
     try {
+      const formatNumber = String(data.amount).replace(',', '.')
+      const body = {
+        ...data,
+        amount: Number(formatNumber),
+      }
       setIsLoading(true)
-      await axios.post('api/finance', {
-        body: {
-          ...data,
-          amount: Number(formatNumber),
-        },
-      })
-      props.onSuccess()
+      await createFinance(body)
       onClose()
     } catch (error) {
       console.error(error)
@@ -148,7 +151,7 @@ export function NewTransaction(props: Props) {
           })}
         />
 
-        <button className="mx-auto mt-5 block h-10 w-[244px] rounded-3xl bg-purple-600 font-semibold text-white transition-colors hover:bg-purple-800">
+        <button className="mx-auto mt-5 block flex h-10 w-[244px] items-center justify-center rounded-3xl bg-purple-600 font-semibold text-white transition-colors hover:bg-purple-800">
           {isLoading ? <Loader2 className="animate-spin" /> : 'Nova transação'}
         </button>
         <button

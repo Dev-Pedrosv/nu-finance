@@ -9,9 +9,9 @@ interface CreateFinanceProps extends Omit<FinanceList, 'id' | 'createdAt'> {}
 interface FinanceContextType {
   financeList: FinanceList[]
   setFinanceList: (value: FinanceList[]) => void
-  getFinance: () => void
-  createFinance: (value: CreateFinanceProps) => void
-  deleteFinance: (value: string) => void
+  getFinance: () => Promise<void>
+  createFinance: (value: CreateFinanceProps) => Promise<void>
+  deleteFinance: (value: string) => Promise<void>
   isLoading: boolean
 }
 
@@ -41,13 +41,13 @@ export function FinanceProvider({ children }: ContextProps) {
     }
   }
 
-  const createFinance = async (data: CreateFinanceProps) => {
+  const createFinance = async (body: CreateFinanceProps) => {
     try {
-      const newFinance: FinanceList = await axios.post('/api/finance', {
-        body: data,
+      const { data } = await axios.post('/api/finance', {
+        ...body,
       })
 
-      setFinanceList([...financeList, newFinance])
+      setFinanceList([...financeList, data?.newFinance])
     } catch (err) {
       console.log(err)
     }
@@ -55,17 +55,17 @@ export function FinanceProvider({ children }: ContextProps) {
 
   const deleteFinance = async (financeId: string) => {
     try {
-      await axios.post('/api/finance', {
-        body: financeId,
-      })
+      setIsLoading(true)
+      await axios.delete(`/api/finance/${financeId}`)
 
       const updateList = financeList.filter(
         (finance) => finance.id !== financeId,
       )
-
       setFinanceList(updateList)
     } catch (err) {
       console.log(err)
+    } finally {
+      setIsLoading(false)
     }
   }
 

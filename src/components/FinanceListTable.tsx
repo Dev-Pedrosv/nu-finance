@@ -42,7 +42,7 @@ export function FinanceListTable({ financeList, onDelete }: Props) {
                 {finance.category}
               </p>
               <div className="flex flex-col items-center justify-between px-5 text-start text-sm font-medium md:flex-row md:text-base">
-                {new Date(finance.date).toLocaleDateString()}
+                {new Date(finance.createdAt).toLocaleDateString()}
                 <button
                   className="text-red-500 transition-all hover:text-red-400 "
                   onClick={() => onDelete(finance.id)}

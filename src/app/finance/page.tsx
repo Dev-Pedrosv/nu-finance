@@ -1,12 +1,11 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { signOut, useSession } from 'next-auth/react'
 import { usePathname, useRouter } from 'next/navigation'
-import axios from 'axios'
-import { Loader2, LogOut } from 'lucide-react'
+import { FinanceContext } from '@/providers/financeProvider'
 
-import { FinanceList } from '@/types/finance-list'
+import { Loader2, LogOut } from 'lucide-react'
 
 import { ProfileInfo } from '@/components/ProfileInfo'
 import { Balance } from '@/components/Balance'
@@ -18,20 +17,11 @@ import Loading from '@/components/Loading'
 
 export default function Home() {
   const { status, data } = useSession()
+  const { financeList, isLoading, deleteFinance } = useContext(FinanceContext)
   const router = useRouter()
   const pathname = usePathname()
-  const [financeList, setFinanceList] = useState<FinanceList[] | undefined>()
   const [isOpen, setIsOpen] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-
-  async function fetchData() {
-    const { data } = await axios.get('/api/finance')
-    setFinanceList(data)
-  }
-
-  useEffect(() => {
-    fetchData()
-  }, [])
+  const [isLoadingLogout, setIsLoadingLogout] = useState(false)
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -39,12 +29,25 @@ export default function Home() {
     }
   }, [data, router, status, pathname])
 
-  function handleOpenNewTransaction() {
+  const handleOpenNewTransaction = () => {
     setIsOpen(true)
   }
 
-  function handleCloseNewTransaction() {
+  const handleCloseNewTransaction = () => {
     setIsOpen(false)
+  }
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteFinance(id)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const handleLogout = () => {
+    setIsLoadingLogout(true)
+    signOut()
   }
 
   const totalBalance = financeList?.reduce((sum, item) => {
@@ -60,38 +63,34 @@ export default function Home() {
   }, 0)
 
   return (
-    <main className="h-screen bg-[#E5E5E5]">
+    <main className="min-h-screen bg-[#E5E5E5] pb-20 ">
       <Header>
         <div className="flex items-center gap-4">
           <ButtonNewTransaction onClick={handleOpenNewTransaction} />
           <button
-            onClick={() => signOut()}
-            className="relative text-black transition-all hover:opacity-60
-            
-            "
+            onClick={handleLogout}
+            className="hover:opacity-6 relative text-black transition-all"
           >
-            {status === 'loading' ? (
+            {isLoadingLogout ? (
               <Loader2 className="animate-spin" />
             ) : (
-              <>
-                <LogOut />
-              </>
+              <LogOut />
             )}
           </button>
         </div>
       </Header>
       <ProfileInfo totalBalance={totalBalance || 0} />
-
       <Balance deposit={totalDeposit} withdraw={totalWithdraw} />
 
-      <FinanceListTable
-        financeList={financeList}
-        onDelete={(value: string) => console.log(value)}
-      />
+      <div className="mt-5 max-h-[520px] w-full overflow-y-scroll md:mt-10">
+        <FinanceListTable
+          financeList={financeList}
+          onDelete={(value: string) => handleDelete(value)}
+        />
+      </div>
       <NewTransaction
         isOpen={isOpen}
         handleCloseNewTransaction={handleCloseNewTransaction}
-        onSuccess={fetchData}
       />
       <Loading isLoading={isLoading} />
     </main>

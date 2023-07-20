@@ -47,23 +47,3 @@ export async function POST(request: Request) {
     { status: 201 },
   )
 }
-
-export async function DELETE(request: Request) {
-  const req = await request.json()
-  const { financeId } = req
-
-  if (!financeId) {
-    return {
-      status: 400,
-      body: {
-        message: 'Missing word Id',
-      },
-    }
-  }
-
-  const finance = await prisma.financeTransaction.delete({
-    where: { id: financeId },
-  })
-
-  return new NextResponse(JSON.stringify(finance), { status: 200 })
-}

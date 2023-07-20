@@ -1,10 +1,13 @@
 import { ReactNode } from 'react'
 import './globals.css'
-import { Montserrat } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 import { NextAuthProvider } from '@/providers/auth'
 import ToastProvider from '@/providers/toast'
 
-const montserrat = Montserrat({ subsets: ['latin'] })
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+})
 
 export const metadata = {
   title: 'Nu Finance',
@@ -14,7 +17,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={montserrat.className}>
+      <body className={poppins.className}>
         <NextAuthProvider>
           <ToastProvider>{children}</ToastProvider>
         </NextAuthProvider>
