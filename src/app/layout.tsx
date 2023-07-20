@@ -1,6 +1,8 @@
 import { ReactNode } from 'react'
 import './globals.css'
 import { Montserrat } from 'next/font/google'
+import { NextAuthProvider } from '@/providers/auth'
+import ToastProvider from '@/providers/toast'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -12,7 +14,11 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={montserrat.className}>{children}</body>
+      <body className={montserrat.className}>
+        <NextAuthProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </NextAuthProvider>
+      </body>
     </html>
   )
 }
