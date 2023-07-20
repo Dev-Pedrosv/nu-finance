@@ -3,6 +3,6 @@ export interface FinanceList {
   title: string
   amount: number
   category: string
-  date: string
+  createdAt: string
   type: 'withdraw' | 'deposit'
 }
