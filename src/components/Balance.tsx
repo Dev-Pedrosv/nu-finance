@@ -1,4 +1,4 @@
-import { currencyFormat } from '@/app/lib/currencyFormat'
+import { currencyFormat } from '@/lib/currencyFormat'
 
 interface Props {
   deposit?: number

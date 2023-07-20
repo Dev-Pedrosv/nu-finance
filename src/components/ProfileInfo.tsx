@@ -1,6 +1,6 @@
 'use client'
 
-import { currencyFormat } from '@/app/lib/currencyFormat'
+import { currencyFormat } from '@/lib/currencyFormat'
 import { EyeOffIcon, EyeIcon } from 'lucide-react'
 import { useState } from 'react'
 

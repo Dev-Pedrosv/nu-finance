@@ -1,5 +1,5 @@
 import { FinanceList } from '@/types/finance-list'
-import { currencyFormat } from '@/app/lib/currencyFormat'
+import { currencyFormat } from '@/lib/currencyFormat'
 import { Trash2 } from 'lucide-react'
 import { twMerge } from 'tailwind-merge'
 
