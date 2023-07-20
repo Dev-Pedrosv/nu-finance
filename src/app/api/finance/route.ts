@@ -1,60 +1,69 @@
-import { FinanceList } from '@/types/finance-list'
-import { randomUUID } from 'crypto'
+import { prisma } from '@/lib/prisma'
+import { getServerSession } from 'next-auth'
 import { NextResponse } from 'next/server'
+import { authOptions } from '../auth/[...nextauth]/route'
 
-const data: FinanceList[] = [
-  {
-    id: '1',
-    title: 'Cartão de crédito',
-    amount: 252.64,
-    category: 'Casa',
-    date: new Date().toString(),
-    type: 'withdraw',
-  },
-  {
-    id: '2',
-    title: 'Conta de luz',
-    amount: 190.12,
-    category: 'Casa',
-    date: new Date().toString(),
-    type: 'withdraw',
-  },
+export async function GET(request: Request) {
+  const userSession = await getServerSession(authOptions)
 
-  {
-    id: '3',
-    title: 'Salário',
-    amount: 3500,
-    category: 'Dev',
-    date: new Date().toString(),
-    type: 'deposit',
-  },
+  const listWords = await prisma.financeTransaction.findMany({
+    where: { userId: (userSession?.user as any)?.id },
+  })
 
-  {
-    id: '4',
-    title: 'Freelance',
-    amount: 1000,
-    category: 'Dev',
-    date: new Date().toString(),
-    type: 'deposit',
-  },
-]
-
-export async function GET() {
-  return NextResponse.json(data)
+  return new NextResponse(JSON.stringify(listWords), { status: 200 })
 }
 
 export async function POST(request: Request) {
-  const requestData = await request.json()
-  const { title, amount, category, type } = requestData.body
+  const req = await request.json()
+  const userSession = await getServerSession(authOptions)
 
-  data.push({
-    id: randomUUID(),
-    date: new Date().toString(),
-    title,
-    amount,
-    category,
-    type,
+  const { title, amount, category, type } = req
+
+  const newFinance = await prisma.financeTransaction.create({
+    data: {
+      userId: (userSession?.user as any)?.id,
+      amount,
+      title,
+      category,
+      type,
+    },
   })
 
-  return NextResponse.json('Success')
+  if (!newFinance) {
+    return new NextResponse(
+      JSON.stringify({
+        error: {
+          code: 'ERROR_TO_CREATE_NEW_WORD',
+        },
+      }),
+    )
+  }
+
+  return new NextResponse(
+    JSON.stringify({
+      success: true,
+      newFinance,
+    }),
+    { status: 201 },
+  )
+}
+
+export async function DELETE(request: Request) {
+  const req = await request.json()
+  const { financeId } = req
+
+  if (!financeId) {
+    return {
+      status: 400,
+      body: {
+        message: 'Missing word Id',
+      },
+    }
+  }
+
+  const finance = await prisma.financeTransaction.delete({
+    where: { id: financeId },
+  })
+
+  return new NextResponse(JSON.stringify(finance), { status: 200 })
 }
