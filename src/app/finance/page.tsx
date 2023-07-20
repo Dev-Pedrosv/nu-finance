@@ -1,8 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { signOut, useSession } from 'next-auth/react'
+import { usePathname, useRouter } from 'next/navigation'
 import axios from 'axios'
-import { LogOut } from 'lucide-react'
+import { Loader2, LogOut } from 'lucide-react'
 
 import { FinanceList } from '@/types/finance-list'
 
@@ -15,6 +17,9 @@ import ButtonNewTransaction from '@/components/ButtonNewTransaction'
 import Loading from '@/components/Loading'
 
 export default function Home() {
+  const { status, data } = useSession()
+  const router = useRouter()
+  const pathname = usePathname()
   const [financeList, setFinanceList] = useState<FinanceList[] | undefined>()
   const [isOpen, setIsOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -27,6 +32,12 @@ export default function Home() {
   useEffect(() => {
     fetchData()
   }, [])
+
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/')
+    }
+  }, [data, router, status, pathname])
 
   function handleOpenNewTransaction() {
     setIsOpen(true)
@@ -53,7 +64,20 @@ export default function Home() {
       <Header>
         <div className="flex items-center gap-4">
           <ButtonNewTransaction onClick={handleOpenNewTransaction} />
-          <LogOut />
+          <button
+            onClick={() => signOut()}
+            className="relative text-black transition-all hover:opacity-60
+            
+            "
+          >
+            {status === 'loading' ? (
+              <Loader2 className="animate-spin" />
+            ) : (
+              <>
+                <LogOut />
+              </>
+            )}
+          </button>
         </div>
       </Header>
       <ProfileInfo totalBalance={totalBalance || 0} />
