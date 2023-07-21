@@ -1,6 +1,6 @@
-<h1 align="center">   Trips App - Full Stack Week</h1>
+<h1 align="center"> Nu Finance Application </h1>
 
-🗔 Check out the app: https://trips-app-dev.vercel.app/
+🗔 Check out the app: https://nu-finance-application.vercel.app/
 
 ## Welcome to Nu Finance Application!
 This application is designed to help you manage your finances effectively and effortlessly. Below are some screenshot about application and of the key features that you can take advantage of:
