@@ -13,6 +13,7 @@ import Input from '@/components/Input'
 import IncomeSVG from '@/assets/income.svg'
 import OutcomeSVG from '@/assets/outcome.svg'
 import CardSVG from '@/assets/card.svg'
+import { toast } from 'react-toastify'
 
 interface Props {
   isOpen: boolean
@@ -49,8 +50,10 @@ export function NewTransaction(props: Props) {
       setIsLoading(true)
       await createFinance(body)
       onClose()
+      toast.success('Transação criada com sucesso.')
     } catch (error) {
       console.error(error)
+      toast.error('Erro ao criar nova transação, tente novamente.')
     } finally {
       setIsLoading(false)
     }

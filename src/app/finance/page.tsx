@@ -14,6 +14,7 @@ import { NewTransaction } from '@/components/NewTransaction'
 import Header from '@/components/Header'
 import ButtonNewTransaction from '@/components/ButtonNewTransaction'
 import Loading from '@/components/Loading'
+import { toast } from 'react-toastify'
 
 export default function Home() {
   const { status, data } = useSession()
@@ -40,8 +41,10 @@ export default function Home() {
   const handleDelete = async (id: string) => {
     try {
       await deleteFinance(id)
+      toast.success('Transação deletada com sucesso.')
     } catch (err) {
       console.log(err)
+      toast.error('Erro ao deletar transação, tente novamente.')
     }
   }
 
