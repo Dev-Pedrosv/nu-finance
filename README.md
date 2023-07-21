@@ -1,38 +1,105 @@
-![image](https://github.com/Dev-Pedrosv/nu-finance/assets/82785683/4c6ca721-e417-44c5-aca7-d184d778f1c0)
+<h1 align="center">   Trips App - Full Stack Week</h1>
+
+🗔 Check out the app: https://trips-app-dev.vercel.app/
+
+## Welcome to Nu Finance Application!
+This application is designed to help you manage your finances effectively and effortlessly. Below are some screenshot about application and of the key features that you can take advantage of:
+
+![image](https://github.com/Dev-Pedrosv/nu-finance/assets/82785683/abf2c68d-c83e-4729-a4aa-e947da9cd029)
+![image](https://github.com/Dev-Pedrosv/nu-finance/assets/82785683/f41a51df-38ae-4719-964c-c45dec51a4ba)
+![image](https://github.com/Dev-Pedrosv/nu-finance/assets/82785683/32a900ef-0ad5-44fa-98c9-4aaaaceb7860)
+
+##  1. Secure Google Account Login
+Our application provides a secure and convenient way for you to log in using your Google account. This ensures the safety of your financial data and allows for a seamless authentication process.
+
+##  2. Record Financial Transactions
+Easily record your financial transactions with just a few clicks. When adding a new transaction, you can include the following details:
+
+- Title: Give your transaction a descriptive title.
+- Amount: Specify the amount involved in the transaction.
+- Category: Categorize the transaction to help you track expenses efficiently.
+- Type: Indicate whether it is a deposit or withdrawal.
+
+## 3. Comprehensive Financial Overview
+Get a clear and comprehensive overview of your finances. The application displays all your financial transactions in an organized manner, providing valuable insights into your spending and earnings patterns.
+
+## 4. Easy Data Management
+Feel free to manage your financial data as you wish. You have the option to delete any specific item from your transactions list, giving you full control over your financial records.
+
+## 5. User-friendly Interface
+We have designed the application with a user-friendly interface, ensuring a smooth and enjoyable experience for all users.
+
+## 6. Data Security and Privacy
+Rest assured, we prioritize the security and privacy of your financial information. Our application adheres to industry-standard practices to keep your data safe.
+
+## 7. Intuitive Navigation
+Our application's intuitive navigation makes it easy for you to find what you need and access various features effortlessly.
+
+## 📁 Page(s)
+
+The site has a total of 2 page(s), which are:
+
+- **/:** Home page to do login user.
+- **/finance:** Page with finance list
+
+## 👨‍🎨 Figma
+
+🗔 Check out the design: https://www.figma.com/file/5Zx62t8MMhi6nvdzPLGm9K/Nubank-web-(Community)?type=design&node-id=0%3A1&mode=design&t=dTl7iQ1PeoyReiWU-1
+
+## 🚀 Technologies
+- [Nextjs](https://nextjs.org/)
+- [Next Auth](https://next-auth.js.org/)
+- [Prisma](https://www.prisma.io/)
+- [Typescript](https://www.typescriptlang.org/)
+- [React Hook Form](https://react-hook-form.com/)
+- [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Lucide](https://lucide.dev/)
+- [React Currency Input Field](https://www.npmjs.com/package/react-currency-input-field)
 
 
+## :closed_book: How to use it?
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
+Before starting, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+# Clone this project
+$ git clone https://github.com/Dev-Pedrosv/trips-app.git
+
+# access
+$ cd trips-app
+
+# install dependencies
+$ yarn or npm
+
+# Run the project
+$ yarn dev or npm run dev
+
+# The server will initialize in the <http://localhost:3000>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🤝 Collaborators
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Thanks to the following people who contributed to this project:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<table>
+  <tr>
+    <td align="center">
+      <a href="#">
+        <img src="https://avatars.githubusercontent.com/u/82785683?v=4" width="160px;" alt="Photo by Pedro Silva on GitHub"/><br>
+        <sub>
+          <b>Pedro Silva</b>
+        </sub>
+      </a>
+    </all>
+  </tr>
+</table>
 
-## Learn More
+## 📝 License
 
-To learn more about Next.js, take a look at the following resources:
+This project is under license. See the [LICENSE](LICENSE.md) file for more details.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+&#xa0;
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<a href="#top">Go back to top</a>
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
